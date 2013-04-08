@@ -43,11 +43,26 @@ int main( int argc, char *argv[] )
   	struct pollfd fd = { sock.fd(), POLLIN, 0 };
   	int when_to_send = poll( &fd, 1, controller.timeout_ms() );
   	if (when_to_send == 0) { /* time T has elapsed, so send a packet to maintain constant bit rate */
-    	Packet x( destination, sequence_number++ );
-    	sock.send( x );
-    	controller.packet_was_sent( x.sequence_number(),
-                                    x.send_timestamp() );
+    	  Packet x( destination, sequence_number++ );
+     	  sock.send( x );
+    	  controller.packet_was_sent( x.sequence_number(),
+                                      x.send_timestamp() );
         }
+	else if (when_to_send < 0) { /* error */
+	  perror( "poll" );
+          throw string( "poll returned error." );
+	}
+	else {
+        /* we got an acknowledgment */
+        Packet ack = sock.recv();
+
+        /* tell the controller */
+        controller.ack_received( ack.ack_sequence_number(),
+                                 ack.ack_send_timestamp(),
+                                 ack.ack_recv_timestamp(),
+                                 ack.recv_timestamp() );
+      }
+
     }
 }
   catch ( const string & exception ) {

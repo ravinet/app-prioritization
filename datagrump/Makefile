@@ -1,9 +1,10 @@
 source = socket.cc address.cc packet.cc int64.cc timestamp.cc \
 	datagrump-sender.cc datagrump-receiver.cc \
 	util.cc controller.cc flow1sender.cc flow1receiver.cc \
-	 flow2sender.cc flow2receiver.cc
+	flow2sender.cc flow2receiver.cc flow3sender.cc flow3receiver.cc \
+        tcpsocket.cc
 
-objects = socket.o address.o packet.o int64.o timestamp.o util.o controller.o
+objects = socket.o tcpsocket.o address.o packet.o int64.o timestamp.o util.o controller.o
 
 executables = datagrump-sender datagrump-receiver flow1sender flow1receiver flow2sender flow2receiver
 

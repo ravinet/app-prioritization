@@ -30,7 +30,7 @@ int main( int argc, char *argv[] )
       //pktsent = received_packet.send_timestamp();
       delay = received_packet.recv_timestamp() - received_packet.send_timestamp();
     /* calculate delay for this flow */
-      fprintf( stderr, "Delay for Packet %lu. which was sent at %lu.  is %lu.\n", received_packet.sequence_number(), received_packet.send_timestamp(), delay );
+      fprintf( stdout, "Delay for Packet %lu. which was sent at %lu.  is %lu.\n", received_packet.sequence_number(), received_packet.send_timestamp(), delay );
 
       /* Send back acknowledgment */
       Packet ack( received_packet.addr(), sequence_number++, received_packet );

@@ -75,11 +75,11 @@ def run_cellsim(LTE):
 
 def run_datagrump(sender, receiver):
     print "Running flow1receiver...",
-    receiver.sendCmd('/home/ravinet/mininet/mininet/datagrump/flow1receiver 9000 >/tmp/receiver-stdout 2>/tmp/receiver-stderr &')
+    receiver.sendCmd('/home/ravinet/mininet/mininet/datagrump/flow1receiver 9200 >/tmp/receiver-stdout 2>/tmp/receiver-stderr &')
     receiver.waitOutput()
     print "done."
     print "Running flow1sender...",
-    sender.sendCmd('/home/ravinet/mininet/mininet/datagrump/flow1sender 10.0.1.2 9000 debug >/tmp/sender-stdout 2>/tmp/sender-stderr &')
+    sender.sendCmd('/home/ravinet/mininet/mininet/datagrump/flow1sender 10.0.1.2 9200 debug >/tmp/sender-stdout 2>/tmp/sender-stderr &')
     sender.waitOutput()
     print "done."
 
@@ -125,7 +125,8 @@ def run_cellsim_topology():
     #Dump connections
     #dumpNodeConnections(net.hosts)
     #display_routes(net, sender, LTE, receiver)
-
+    
+    #run_cellsim(LTE)
     run_datagrump(sender, receiver)
 
     run_cellsim(LTE)
